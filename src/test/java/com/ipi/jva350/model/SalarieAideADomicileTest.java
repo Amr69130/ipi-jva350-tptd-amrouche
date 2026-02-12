@@ -3,6 +3,8 @@ package com.ipi.jva350.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -32,29 +34,38 @@ public class SalarieAideADomicileTest {
         Assertions.assertEquals(false, aLeDroit);
     }
 
-    @Test
-    public void testCalculeJoursDeCongeDecomptesPourPlageRight() {
-        //Given
-        SalarieAideADomicile sa = new SalarieAideADomicile();
-        LocalDate dateDebut = LocalDate.parse("2025-11-01");
-        LocalDate dateFin = LocalDate.parse("2025-12-01");
+    @ParameterizedTest
+    @CsvSource({
+            "2025-11-01,2025-12-01"
+    })
+    public void testCalculeJoursDeCongeDecomptesPourPlageRight(String debut, String fin) {
+        // Given
+        SalarieAideADomicile unSalarie = new SalarieAideADomicile();
+        LocalDate dateDebut = LocalDate.parse(debut);
+        LocalDate dateFin = LocalDate.parse(fin);
 
-        //When
-        LinkedHashSet<LocalDate> joursDeConges = sa.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin);
-        //Then
+        // When
+        LinkedHashSet<LocalDate> joursDeConges = unSalarie.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin);
+
+        // Then
         Assertions.assertEquals(24, joursDeConges.size());
     }
 
-    @Test
-    public void testCalculeJoursDeCongeDecomptesPourPlageWrong() {
-        //Given
-        SalarieAideADomicile sa = new SalarieAideADomicile();
-        LocalDate dateDebut = LocalDate.parse("2025-11-01");
-        LocalDate dateFin = LocalDate.parse("2025-12-01");
 
-        //When
-        LinkedHashSet<LocalDate> joursDeConges = sa.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin);
-        //Then
+    @ParameterizedTest
+    @CsvSource({
+            "2025-11-01,2025-12-01"
+    })
+    public void testCalculeJoursDeCongeDecomptesPourPlageWrong(String debut, String fin) {
+        // Given
+        SalarieAideADomicile unSalarie = new SalarieAideADomicile();
+        LocalDate dateDebut = LocalDate.parse(debut);
+        LocalDate dateFin = LocalDate.parse(fin);
+
+        // When
+        LinkedHashSet<LocalDate> joursDeConges = unSalarie.calculeJoursDeCongeDecomptesPourPlage(dateDebut, dateFin);
+
+        // Then
         Assertions.assertNotEquals(20, joursDeConges.size());
     }
 }
