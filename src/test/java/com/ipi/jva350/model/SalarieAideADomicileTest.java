@@ -68,4 +68,5 @@ public class SalarieAideADomicileTest {
         // Then
         Assertions.assertNotEquals(20, joursDeConges.size());
     }
+
 }
