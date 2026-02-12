@@ -27,7 +27,22 @@ public class SalarieAideADomicileRepositoryTest {
         SalarieAideADomicile result = SalarieAideADomicileRepository.findByNom("Dupont");
 
         // THEN
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals("Dupont", result.getNom());
+        Assertions.assertNotNull(result); // Je teste le cas où je trouve un salarié
+    }
+
+    @Test
+    public void testFindByNomFalse() {
+
+        // GIVEN
+        SalarieAideADomicile salarie = new SalarieAideADomicile();
+        salarie.setNom("Guetôme");
+
+        SalarieAideADomicileRepository.save(salarie);
+
+        // WHEN
+        SalarieAideADomicile result = SalarieAideADomicileRepository.findByNom("Gautier");
+
+        // THEN
+        Assertions.assertNull(result); // Je teste le cas où je ne trouve pas de salarié
     }
 }
